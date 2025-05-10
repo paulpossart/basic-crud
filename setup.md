@@ -51,6 +51,10 @@
     - and run with: npm run lint
     - npm run lint -- --fix
 
+## Auth
+- npm install bcrypt jsonwebtoken cookie-parser uuid
+- npm install csurf validator dompurify
+
 ## Frontend 
 **Create frontend folder**
 
@@ -68,6 +72,4 @@
 
 ### Connect to GitHub
 
-## Auth
-- npm install bcrypt jsonwebtoken cookie-parser uuid
-- npm install csurf validator dompurify
+
