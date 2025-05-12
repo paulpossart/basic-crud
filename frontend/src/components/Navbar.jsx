@@ -13,6 +13,8 @@ function Navbar() {
             {/* with logout */}
             {/*user ? <LogOutBtn css1/> : <LogOutBtn css2/> */}
             <LogOutBtn />
+            {/* remove hr */}
+            <hr />
         </>
     );
 };
