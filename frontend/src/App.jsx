@@ -1,6 +1,9 @@
 import './App.css';
+
+import Navbar from './components/Navbar';
 import Dashboard from './components/Dashboard';
 import AuthPage from './components/AuthPage';
+import RegPage from './components/RegPage';
 import { useAuth } from './context/AuthContext';
 
 import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
@@ -10,7 +13,7 @@ function App() {
 
   return (
     <Router>
-      {/*NAVBAR*/}
+      <Navbar />
       <Routes>
         <Route
           path='/'
@@ -22,6 +25,7 @@ function App() {
           element={
             !user ? <AuthPage /> : <Navigate to='/' />
           } />
+          <Route path='/new-user-reg' element={<RegPage />} />
       </Routes>
     </Router>
   )

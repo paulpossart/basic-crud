@@ -16,9 +16,11 @@ app.use(cookieParser());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
+//======================================
 app.get('/', (req, res) => {
     res.json({info: 'backend running'});
 });
+//======================================
 
 app.use('/api/auth', authRouter);
 app.use('/api/users', userRouter);

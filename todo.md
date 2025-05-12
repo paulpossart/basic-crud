@@ -1,4 +1,4 @@
-- redux for auth???
+
 - Do it again, but pretty, with a schema
 - regex FE validator BE
 - (authcheck should just be a protected getUser route)
