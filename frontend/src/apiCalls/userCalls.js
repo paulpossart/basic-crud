@@ -5,8 +5,8 @@ export const callDevCreateUser = async (newUsername, newPassword) => {
         const response = await fetch(`${api}/users`, {
             method: 'POST',
             body: JSON.stringify({
-                username: newUsername,
-                password: newPassword
+                newUsername: newUsername,
+                newPassword: newPassword
             }),
             headers: { 'Content-Type': 'application/json' },
         });

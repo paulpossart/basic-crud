@@ -1,11 +1,11 @@
 import pool from "../db/config.js";
 
 export const devLogin = async (req, res, next) => {
-    const { username } = require.body;
+    const { username } = req.body;
 
     try {
         const result = await pool.query(
-            `SELECT username FROM crud_auth
+            `SELECT username FROM crud_auth.users
          WHERE username = $1`,
             [username]
         );
