@@ -17,7 +17,9 @@ function LoginBtn() {
 
     return (
         <>
-            <button onClick={handleClick}><Link to='/auth'>Login</Link></button>
+            <button onClick={handleClick}>
+                <Link to='/auth'>Login</Link>
+            </button>
             {location.pathname === path ? (error) : (null)}
         </>
 

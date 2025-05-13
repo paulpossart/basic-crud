@@ -1,6 +1,6 @@
 const api = import.meta.env.VITE_API_URL;
 
-export const callDevLogin =async (username) => {
+export const callDevLogin = async (username) => {
     try {
         const response = await fetch(`${api}/auth/login`, {
             method: 'POST',
@@ -13,7 +13,7 @@ export const callDevLogin =async (username) => {
             throw new Error('callLogin error');
         }
         const data = await response.json();
-        return data.user;
+        return data;
 
     } catch (err) {
         console.log(err);

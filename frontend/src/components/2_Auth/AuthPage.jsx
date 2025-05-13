@@ -1,26 +1,30 @@
 import { useState } from "react";
-import RegPageBtn from "./Buttons/RegPageBtn";
-import { useAuth } from "../context/AuthContext";
+import { useAuth } from "../../context/AuthContext"; 
+import { Link } from "react-router-dom";
 
 //===================================
-import { callDevLogin } from "../apiCalls/authCalls";
+import { callDevLogin } from '../../apiCalls/authCalls'
 //===================================
 
-function AuthPage({className}) {
+function AuthPage({ className }) {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
 
-    const {setUser} = useAuth();
+    const { setUser } = useAuth();
 
     const handleSubmit = async (e, uname, pword) => {
         e.preventDefault();
         const user = await callDevLogin(uname);
 
-        if (user) setUser(user);
+        if (user) {
+            setUser(user);
+            console.log(`${user.user}: ${user.id}`)
+        }
         else {
             //set a universal error - errorContext
             console.log('user not found')
         }
+
         setUsername('');
         setPassword('');
     };
@@ -45,7 +49,7 @@ function AuthPage({className}) {
                 <button type='submit'>Submit</button>
             </form>
             <p>or</p>
-            <RegPageBtn />
+            <Link to='/new-user-reg'>Register for an Account</Link>
         </div>
     )
 };

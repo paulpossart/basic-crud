@@ -14,7 +14,7 @@ export const callDevCreateUser = async (newUsername, newPassword) => {
             throw new Error('callCreateUser error');
         }
         const data = await response.json();
-        return data.user;
+        return data;
     } catch (err) {
         console.log(err);
         return null;

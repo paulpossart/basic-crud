@@ -1,7 +1,7 @@
-import Navbar from './components/Navbar';
-import Dashboard from './components/Dashboard';
-import AuthPage from './components/AuthPage';
-import RegPage from './components/RegPage';
+import Navbar from './components/1_Nav/Navbar';
+import Dashboard from './components/3_Main/Dashboard';
+import AuthPage from './components/2_Auth/AuthPage';
+import RegPage from './components/2_Auth/RegPage';
 import { useAuth } from './context/AuthContext';
 import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
 

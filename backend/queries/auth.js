@@ -5,8 +5,8 @@ export const devLogin = async (req, res, next) => {
 
     try {
         const result = await pool.query(
-            `SELECT username FROM crud_auth.users
-         WHERE username = $1`,
+            `SELECT id, username FROM crud_auth.users
+             WHERE username = $1`,
             [username]
         );
 
@@ -14,7 +14,10 @@ export const devLogin = async (req, res, next) => {
             return res.sendStatus(404);
         }
 
-        res.status(200).json({ user: result.rows[0].username })
+        res.status(200).json({ 
+            user: result.rows[0].username,
+            id: result.rows[0].id
+        })
     } catch (err) {
         next(err);
     }

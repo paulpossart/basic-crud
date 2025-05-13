@@ -1,9 +1,9 @@
 import { useState } from "react";
-import { useAuth } from "../context/AuthContext";
-import LoginBtn from "./Buttons/LoginBtn";
+import { useAuth } from "../../context/AuthContext";
+import LoginBtn from "../Buttons/LoginBtn";
 
 //===================================
-import { callDevCreateUser } from "../apiCalls/userCalls";
+import { callDevCreateUser } from "../../apiCalls/userCalls";
 
 //===================================
 
@@ -17,7 +17,11 @@ function RegPage({ className }) {
         e.preventDefault();
         const user = await callDevCreateUser(uname, pword);
 
-        if (user) setUser(user);
+        if (user) {
+            setUser(user);
+            console.log(`${user.user}: ${user.id}`)
+        }
+
         else {
             //set a universal error - errorContext
             console.log('user not made')

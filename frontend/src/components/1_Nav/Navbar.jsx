@@ -1,7 +1,6 @@
-//import RegPageBtn from "./Buttons/RegPageBtn";
-import LoginBtn from "./Buttons/LoginBtn";
-import LogOutBtn from "./Buttons/LogOutBtn";
-import { useAuth } from "../context/AuthContext";
+import LoginBtn from "../Buttons/LoginBtn";
+import LogOutBtn from "../Buttons/LogOutBtn";
+import { useAuth } from "../../context/AuthContext"; 
 import styles from './Navbar.module.scss';
 
 function Navbar({className}) {

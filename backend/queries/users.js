@@ -24,13 +24,16 @@ export const devCreateUser = async (req, res, next) => {
 
         const result = await pool.query(
             `INSERT INTO crud_auth.users (id, username, password_hash)
-             VALUES ($1, $2, $3) RETURNING username`,
+             VALUES ($1, $2, $3) RETURNING id, username`,
              [id, newUsername, hashedPassword]
         );
 
         //cookie logic
 
-        res.status(201).json({user: result.rows[0].username})
+        res.status(201).json({
+            user: result.rows[0].username,
+            id: result.rows[0].id,
+        })
     } catch (err) {
         next(err);
     }
