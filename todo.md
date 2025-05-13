@@ -1,6 +1,8 @@
-
-- Do it again, but pretty, with a schema
+- basic css
+- crud logic
 - regex FE validator BE
+- more css
+
 - (authcheck should just be a protected getUser route)
 
 Auth Flow:
@@ -8,5 +10,5 @@ Auth Flow:
 - try to access a resource run auth/refresh, if that fails ask for login.
 - logout
 
-- setup crud app on Render / netlify
+- setup crud app on paid Render / ? netlify
 - then implement auth

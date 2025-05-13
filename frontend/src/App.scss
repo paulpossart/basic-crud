@@ -1,0 +1,19 @@
+.App {
+    display: grid;
+    grid-template-areas:
+        'navbar'
+        'main';
+    grid-template-rows: auto 1fr;
+    min-height: 100vh;
+}
+
+.navbar {
+    grid-area: navbar;
+    //background-color: green;
+}
+
+.main {
+    grid-area: main;
+    //background-color: yellow;
+}
+

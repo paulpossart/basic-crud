@@ -1,6 +1,8 @@
-function Dashboard() {
-    return(
-        <p>Dashboard</p>
+function Dashboard({ className }) {
+    return (
+        <div className={className}>
+            <p>Dashboard</p>
+        </div>
     )
 };
 

@@ -1,0 +1,24 @@
+@use './styles/fonts' as f;
+@use './styles/colors' as c;
+
+
+* {
+    box-sizing: border-box;
+}
+
+html {
+    font-size: 62.5%;
+}
+
+body {
+    font-family: f.$ubuntu;
+    font-size: 1.6rem;
+    text-align: center;
+    line-height: 1.5;
+    @include c.backgroundGradient(135);
+
+    @media (min-width: 800px),
+    (orientation: portrait) and (min-width: 390px) {
+        font-size: 2rem;
+    }
+}

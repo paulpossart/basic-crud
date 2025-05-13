@@ -2,20 +2,16 @@
 import LoginBtn from "./Buttons/LoginBtn";
 import LogOutBtn from "./Buttons/LogOutBtn";
 import { useAuth } from "../context/AuthContext";
+import styles from './Navbar.module.scss';
 
-function Navbar() {
+function Navbar({className}) {
     const { user } = useAuth();
 
     return (
-        <>
+        <div className={`${className} ${styles.Navbar}`}>
             <p>I am a navbar</p>
-            {/* change logout to a settings burger */}
-            {/* with logout */}
-            {/*user ? <LogOutBtn css1/> : <LogOutBtn css2/> */}
-            <LogOutBtn />
-            {/* remove hr */}
-            <hr />
-        </>
+            {user ? <LogOutBtn /> : <LoginBtn />}
+        </div>
     );
 };
 

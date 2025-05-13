@@ -6,7 +6,7 @@ import { useAuth } from "../context/AuthContext";
 import { callDevLogin } from "../apiCalls/authCalls";
 //===================================
 
-function AuthPage() {
+function AuthPage({className}) {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
 
@@ -26,7 +26,7 @@ function AuthPage() {
     };
 
     return (
-        <>
+        <div className={className}>
             <p>AuthPage</p>
             <p>Please Sign In</p>
             <form onSubmit={(e) => handleSubmit(e, username, password)}>
@@ -46,7 +46,7 @@ function AuthPage() {
             </form>
             <p>or</p>
             <RegPageBtn />
-        </>
+        </div>
     )
 };
 

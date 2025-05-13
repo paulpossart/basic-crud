@@ -7,7 +7,7 @@ import { callDevCreateUser } from "../apiCalls/userCalls";
 
 //===================================
 
-function RegPage() {
+function RegPage({ className }) {
     const [newUsername, setNewUsername] = useState('');
     const [newPassword, setNewPassword] = useState('');
 
@@ -27,7 +27,7 @@ function RegPage() {
     };
 
     return (
-        <>
+        <div className={className}>
             <p>RegPage</p>
             <p>Please Register an Account</p>
             <form onSubmit={(e) => handleSubmit(e, newUsername, newPassword)}>
@@ -47,7 +47,7 @@ function RegPage() {
             </form>
             <p>or</p>
             <LoginBtn />
-        </>
+        </div>
     )
 };
 
