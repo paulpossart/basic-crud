@@ -8,7 +8,8 @@ description TEXT,
 */
 
 const createTodo = async (req, res, next) => {
-    const { userId, title, description } = req.body;
+    const userId = req.userId;
+    const { title, description } = req.body;
 
     try {
         await pool.query(
@@ -23,10 +24,14 @@ const createTodo = async (req, res, next) => {
 };
 
 const getTodos = async (req, res, next) => {
+    const userId = req.userId;
+
     try {
         const result = await pool.query(
             `SELECT id, title, description, priority
-             FROM crud_auth.todos`);
+             FROM crud_auth.todos
+             WHERE user_id = $1`,
+            [userId]);
         res.status(200).json(result.rows);
     } catch (err) {
         next(err);

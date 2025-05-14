@@ -1,14 +1,14 @@
 .App {
     display: grid;
     grid-template-areas:
-        'navbar'
+        'header'
         'main';
     grid-template-rows: auto 1fr;
     min-height: 100vh;
 }
 
-.navbar {
-    grid-area: navbar;
+.header {
+    grid-area: header;
     //background-color: green;
 }
 

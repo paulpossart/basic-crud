@@ -1,7 +1,7 @@
 import LoginBtn from "../Buttons/LoginBtn";
-import LogOutBtn from "../Buttons/LogOutBtn";
+import LogOutBtn from "../2_Auth/LogOutBtn";
 import { useAuth } from "../../context/AuthContext"; 
-import styles from './Navbar.module.scss';
+import styles from './Header.module.scss';
 
 function Navbar({className}) {
     const { user } = useAuth();

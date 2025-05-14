@@ -6,6 +6,7 @@
 - more css
 - remove id from authContext
 - set on Render
+- change username / password
 - remove proxy server
 
 - (authcheck should just be a protected getUser route)

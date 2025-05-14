@@ -5,7 +5,7 @@ const AuthContext = createContext();
 const useAuth = () => useContext(AuthContext);
 
 function AuthProvider({ children }) {
-    const [user, setUser] = useState('j');
+    const [user, setUser] = useState('');
 
     return (
         <AuthContext.Provider value={{ user, setUser }}>

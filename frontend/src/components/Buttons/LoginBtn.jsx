@@ -7,18 +7,18 @@ function LoginBtn() {
     const path = '/auth';
 
     const handleClick = () => {
-        setError('Please Sign In')
+        if (location.pathname === path) setError('Please Sign In');
     };
 
     useEffect(() => {
-        console.log(location.pathname)
+        console.log(location.pathname);
     }, [location])
 
 
     return (
         <>
             <button onClick={handleClick}>
-                <Link to='/auth'>Login</Link>
+                <Link to='/auth'>Sign In</Link>
             </button>
             {location.pathname === path ? (error) : (null)}
         </>
@@ -26,4 +26,4 @@ function LoginBtn() {
     );
 };
 
-export default LoginBtn
+export default LoginBtn;

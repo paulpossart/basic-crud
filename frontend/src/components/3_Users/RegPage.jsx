@@ -3,7 +3,7 @@ import { useAuth } from "../../context/AuthContext";
 import LoginBtn from "../Buttons/LoginBtn";
 
 //===================================
-import { callDevCreateUser } from "../../apiCalls/userCalls";
+import { callCreateUser } from "../../apiCalls/userCalls";
 
 //===================================
 
@@ -15,19 +15,28 @@ function RegPage({ className }) {
 
     const handleSubmit = async (e, uname, pword) => {
         e.preventDefault();
-        const user = await callDevCreateUser(uname, pword);
 
-        if (user) {
-            setUser(user);
-            console.log(`${user.user}: ${user.id}`)
-        }
+        if (!uname || !pword) return;
 
-        else {
-            //set a universal error - errorContext
-            console.log('user not made')
+        try {
+            const user = await callCreateUser(uname, pword);
+
+            if (user) {
+                setUser(user);
+                setNewUsername('');
+                setNewPassword('');
+                console.log(`New user: ${JSON.stringify(user)}`)
+            } else {
+                console.log('user not made');
+                setNewUsername('');
+                setNewPassword('');
+            }
+
+        } catch (err) {
+            console.log(err);
+            setNewUsername('');
+            setNewPassword('');
         }
-        setNewUsername('');
-        setNewPassword('');
     };
 
     return (

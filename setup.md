@@ -54,6 +54,7 @@
 ## Auth
 - npm install bcrypt jsonwebtoken cookie-parser uuid
 - npm install csurf validator dompurify
+- csurf needed for sameSite: none cookies
 
 ## Frontend 
 **Create frontend folder**

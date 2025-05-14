@@ -1,12 +1,9 @@
 import { useState } from "react";
 import { useAuth } from "../../context/AuthContext"; 
 import { Link } from "react-router-dom";
+ import { callSignIn } from "../../apiCalls/authCalls";
 
-//===================================
-import { callDevLogin } from '../../apiCalls/authCalls'
-//===================================
-
-function AuthPage({ className }) {
+function SignInPage({ className }) {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
 
@@ -14,11 +11,11 @@ function AuthPage({ className }) {
 
     const handleSubmit = async (e, uname, pword) => {
         e.preventDefault();
-        const user = await callDevLogin(uname);
+        const user = await callSignIn(uname, pword);
 
         if (user) {
             setUser(user);
-            console.log(`${user.user}: ${user.id}`)
+            console.log(`User = ${user.user}`)
         }
         else {
             //set a universal error - errorContext
@@ -54,4 +51,4 @@ function AuthPage({ className }) {
     )
 };
 
-export default AuthPage;
+export default SignInPage;
