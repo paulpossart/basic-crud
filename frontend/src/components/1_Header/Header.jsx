@@ -8,7 +8,7 @@ function Navbar({className}) {
 
     return (
         <div className={`${className} ${styles.Navbar}`}>
-            <p>I am a navbar</p>
+            <p>I am a header</p>
             {user ? <LogOutBtn /> : <LoginBtn />}
         </div>
     );

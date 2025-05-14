@@ -78,9 +78,56 @@ const signOut = (req, res) => {
         .sendStatus(200);
 };
 
+
+// \/ \/ backend only!! ==================================
+const authAndRefresh = (req, res, next) => {
+    const accessToken = req.cookies.accessToken;
+    const refreshToken = req.cookies.refreshToken;
+
+    if (!refreshToken) {
+        return res.status(401).json({
+            message: 'No refresh token available'
+        });
+    }
+
+    if (!accessToken) {
+        return jwt.verify(refreshToken, refreshTokenSecret, (err, payload) => {
+            if (err) {
+                return res.status(401).json({
+                    message: 'Invalid refresh token'
+                });
+            }
+
+            const newAccessToken = signAccessToken({ sub: payload.sub });
+
+            res.cookie('accessToken', newAccessToken, {
+                httpOnly: true,
+                secure: isProd,
+                sameSite: isProd ? 'Strict' : 'None',
+                maxAge: 15 * 60 * 1000
+            });
+
+            req.userId = payload.sub;
+            next();
+        });
+    };
+
+    jwt.verify(accessToken, accessTokenSecret, (err, payload) => {
+        if (err) {
+            return res.status(403).json({ message: 'Invalid token' });
+        }
+
+        req.userId = payload.sub;
+        next();
+    })
+};
+
+// /\ /\ backend only!! ==================================
+
 export {
     signAccessToken,
     signRefreshToken,
     signIn,
-    signOut
+    signOut,
+    authAndRefresh
 }

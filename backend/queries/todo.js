@@ -39,6 +39,7 @@ const getTodos = async (req, res, next) => {
 };
 
 const updateTodoById = async (req, res, next) => {
+    const userId = req.userId;
     const id = parseInt(req.params.id);
     const { title, description } = req.body;
 
@@ -46,8 +47,8 @@ const updateTodoById = async (req, res, next) => {
         await pool.query(
             `UPDATE crud_auth.todos
              SET title = $1, description = $2
-             WHERE id = $3`,
-            [title, description, id]
+             WHERE id = $3 AND user_id = $4`,
+            [title, description, id, userId]
         );
         res.sendStatus(204);
     } catch (err) {
@@ -56,12 +57,14 @@ const updateTodoById = async (req, res, next) => {
 };
 
 const deleteTodoById = async (req, res, next) => {
+    const userId = req.userId
     const id = parseInt(req.params.id);
 
     try {
         await pool.query(
-            `DELETE FROM crud_auth.todos WHERE id = $1`,
-            [id]
+            `DELETE FROM crud_auth.todos
+             WHERE id = $1 AND user_id = $2`,
+            [id, userId]
         );
         res.sendStatus(204);
     } catch (err) {

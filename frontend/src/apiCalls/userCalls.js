@@ -1,6 +1,6 @@
 //const api = import.meta.env.VITE_API_URL;
 
-export const callCreateUser = async (newUsername, newPassword) => {
+const callCreateUser = async (newUsername, newPassword) => {
     try {
         const response = await fetch(`/api/users`, {
             method: 'POST',
@@ -22,4 +22,21 @@ export const callCreateUser = async (newUsername, newPassword) => {
     }
 };
 
+const callGetUser = async () => {
+    try {
+        const response = await fetch('api/users', {
+            method: 'GET',
+            credentials: 'include'
+        });
+        if (!response.ok) throw new Error('callGetUser error');
 
+        const data = await response.json();
+        return data;
+        
+    } catch (err) {
+        console.log(err);
+        return null;
+    }
+};
+
+export { callCreateUser, callGetUser };

@@ -58,47 +58,21 @@ const createUser = async (req, res, next) => {
     }
 };
 
-// backend only!!
-const getUser = (req, res, next) => {
-    const accessToken = req.cookies.accessToken;
-    const refreshToken = req.cookies.refreshToken;
 
-    if (!refreshToken) {
-        return res.status(401).json({
-            message: 'No refresh token available'
-        });
+const getUser = async (req, res, next) => {
+    const userId = req.userId;
+
+    try {
+        const result = await pool.query(
+            `SELECT username FROM crud_auth.users
+             WHERE id = $1`,
+            [userId]
+        );
+        const user = result.rows[0];
+        res.status(200).json({ user: user.username });
+    } catch (err) {
+        next(err);
     }
-
-    if (!accessToken) {
-        return jwt.verify(refreshToken, refreshTokenSecret, (err, payload) => {
-            if (err) {
-                return res.status(401).json({
-                    message: 'Invalid refresh token'
-                });
-            }
-
-            const newAccessToken = signAccessToken({ sub: payload.sub });
-
-            res.cookie('accessToken', newAccessToken, {
-                httpOnly: true,
-                secure: isProd,
-                sameSite: isProd ? 'Strict' : 'None',
-                maxAge: 15 * 60 * 1000
-            });
-
-            req.userId = payload.sub;
-            next();
-        });
-    };
-
-    jwt.verify(accessToken, accessTokenSecret, (err, payload) => {
-        if (err) {
-            return res.status(403).json({ message: 'Invalid token' });
-        }
-
-        req.userId = payload.sub;
-        next();
-    })
 };
 
 export { createUser, getUser };
