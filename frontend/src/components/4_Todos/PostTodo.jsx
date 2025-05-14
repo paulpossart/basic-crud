@@ -7,11 +7,11 @@ function PostTodo({fetchTodos}) {
     const [description, setDescription] = useState('');
     const { user } = useAuth();
 
-    const handleSubmit = async (e, userId, newTitle, newDescription) => {
+    const handleSubmit = async (e, newTitle, newDescription) => {
         e.preventDefault();
         if (!title.trim() || !description.trim()) return;
 
-        await callCreateTodo(userId, newTitle, newDescription);
+        await callCreateTodo(newTitle, newDescription);
         setTitle('');
         setDescription('');
         fetchTodos();
@@ -20,7 +20,7 @@ function PostTodo({fetchTodos}) {
     return (
         <div>
             <p>create</p>
-            <form onSubmit={(e) => handleSubmit(e, user.id, title, description)}>
+            <form onSubmit={(e) => handleSubmit(e, title, description)}>
                 <input
                     type='text'
                     value={title}

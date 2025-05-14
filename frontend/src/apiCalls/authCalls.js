@@ -31,11 +31,11 @@ const callSignOut = async () => {
 
         if (!response.ok) throw new Error('callSignOut failed');
 
-        return true;
+        //return true;
 
     } catch (err) {
         console.log(err);
-        return false;
+       // return false;
     }
 }
 

@@ -1,15 +1,10 @@
-- only show the users todos!!!!! // authenticate user route
-- crud logic
+- set priority
 
-- proxy server and JWTs
-- regex FE validator BE
+- regex FE validator BE -- on username and title/description inputs
 - more css
-- remove id from authContext
 - set on Render
 - change username / password
 - remove proxy server
-
-- (authcheck should just be a protected getUser route)
 
 Auth Flow:
 - createUser/login.
@@ -17,4 +12,3 @@ Auth Flow:
 - logout
 
 - setup crud app on paid Render / ? netlify
-- then implement auth

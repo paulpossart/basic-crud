@@ -39,4 +39,44 @@ const callGetTodos = async () => {
     }
 };
 
-export { callCreateTodo, callGetTodos };
+const callUpdateTodoById = async (id, newTitle, newDescription) => {
+    try {
+        const response = await fetch(`api/todos/${id}`, {
+            method: 'PUT',
+            body: JSON.stringify({
+                title: newTitle,
+                description: newDescription,
+            }),
+            headers: { 'Content-Type': 'application/json' },
+            credentials: 'include',
+        });
+        if (!response.ok) {
+            throw new Error(`PUT Error! Status: ${response.status}`);
+        }
+
+        //return response.status;
+
+    } catch (error) {
+        console.error(error);
+    }
+};
+
+const callDeleteTodoById = async (id) => {
+    try {
+        const response = await fetch(`api/todos/${id}`, {
+            method: 'DELETE',
+            credentials: 'include'
+        });
+
+        if (!response.ok) {
+            throw new Error(`DELETE Error! Status: ${response.status}`);
+        }
+
+        return response.status;
+
+    } catch (error) {
+        console.error(error);
+    }
+};
+
+export { callCreateTodo, callGetTodos, callUpdateTodoById, callDeleteTodoById };
