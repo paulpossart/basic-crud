@@ -5,6 +5,9 @@ import cookieParser from 'cookie-parser';
 
 import authRouter from './routers/authRouter.js';
 import userRouter from './routers/userRouter.js';
+import todosRouter from './routers/todosRouter.js'
+
+import { getUser } from './queries/users.js';
 
 const PORT = process.env.PORT;
 const app = express();
@@ -24,6 +27,7 @@ app.get('/', (req, res) => {
 
 app.use('/api/auth', authRouter);
 app.use('/api/users', userRouter);
+app.use('/api/todos', getUser, todosRouter)
 
 app.use((err, req, res, next) => {
     const status = err.status || 500;
