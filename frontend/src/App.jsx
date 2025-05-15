@@ -56,7 +56,7 @@ function App() {
 
           <Route
             path='*'
-            element={<NotFound />}
+            element={<NotFound className='main' />}
           />  
 
         </Routes>

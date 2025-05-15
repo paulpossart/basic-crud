@@ -4,7 +4,7 @@ import { useAuth } from "../../context/AuthContext";
 import UpdateUserAndPword from "./updateUserPword";
 import DeleteUser from "./DeleteUser";
 
-function Settings() {
+function Settings({className}) {
 
     const { user } = useAuth()
 
@@ -17,15 +17,18 @@ function Settings() {
     });
 
     return (
-        <>
+        <div className={className}>
             <h3>SETTINGS</h3>
             <p>Welcome {username}, </p>
             <p>member since {userJoined} </p>
             <UpdateUserAndPword />
+            <br />
             <DeleteUser />
+            <br />
             <Link to='/'>Home</Link>
+            <br />
             <SignOutBtn />
-        </>
+        </div>
     );
 };
 
