@@ -3,6 +3,7 @@ import SignInPage from './components/2_Auth/SignInPage';
 import RegPage from './components/3_Users/CreateUser';
 import Todos from './components/4_Todos/Todos';
 import Settings from './components/3_Users/Settings';
+import NotFound from './components/2_Auth/NotFound';
 
 import { useAuth } from './context/AuthContext';
 import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
@@ -51,7 +52,12 @@ function App() {
             element={
               user ? <Settings className='main' /> : <Navigate to='/auth' />
             }
-          />          
+          />  
+
+          <Route
+            path='*'
+            element={<NotFound />}
+          />  
 
         </Routes>
 
