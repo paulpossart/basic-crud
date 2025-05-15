@@ -1,13 +1,23 @@
 import { useState } from "react";
 import { callCreateTodo } from "../../apiCalls/todosCall";
 
-function PostTodo({fetchTodos, prevTodo}) {
+function PostTodo({ fetchTodos, prevTodo }) {
     const [title, setTitle] = useState('');
     const [description, setDescription] = useState('');
+    const [error, setError] = useState('');
+
+    const safeRegex = /^[^<>{};\\]*$/;
 
     const handleSubmit = async (e, newTitle, newDescription, prevId) => {
         e.preventDefault();
+
         if (!title.trim() || !description.trim()) return;
+        setError('');
+
+        if (!safeRegex.test(newTitle) || !safeRegex.test(newDescription)) {
+            setError(`Forbidden characters: <>{};\\`);
+            return;
+        }
 
         await callCreateTodo(newTitle, newDescription, prevId);
         setTitle('');
@@ -15,7 +25,7 @@ function PostTodo({fetchTodos, prevTodo}) {
         fetchTodos();
     }
 
-    const prevTodoId = prevTodo ? prevTodo.id : 0; 
+    const prevTodoId = prevTodo ? prevTodo.id : 0;
 
     return (
         <div>
@@ -34,6 +44,7 @@ function PostTodo({fetchTodos, prevTodo}) {
                     placeholder="details"
                 />
                 <br />
+                {error ? <>{error}<br /></> : null}
                 <button type='submit'>Add Task</button>
             </form>
         </div>

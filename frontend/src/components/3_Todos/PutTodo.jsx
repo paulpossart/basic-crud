@@ -7,12 +7,22 @@ function PutTodo({
     setEditId,
     originalTitle,
     originalDesc }) {
+
     const [editTitle, setEditTitle] = useState(originalTitle);
     const [editDescription, setEditDescription] = useState(originalDesc);
+    const [error, setError] = useState('');
+
+    const safeRegex = /^[^<>{};\\]*$/;
 
     const handleSubmit = async (e, id, newTitle, newDescription) => {
         e.preventDefault();
+        setError('');
         if (!newTitle.trim() || !newDescription.trim()) return;
+
+        if (!safeRegex.test(newTitle) || !safeRegex.test(newDescription)) {
+            setError(`Forbidden characters: <>{};\\`);
+            return;
+        }
 
         await callUpdateTodoById(id, newTitle, newDescription);
         setEditTitle('');
@@ -29,8 +39,9 @@ function PutTodo({
                 onChange={(e) => setEditTitle(e.target.value)}
             />
             <br />
-            <input
-                type='text'
+            {error ? (<>{error}<br /></>) : null}
+            <textarea
+                type='textarea'
                 value={editDescription}
                 onChange={(e) => setEditDescription(e.target.value)}
             />

@@ -1,7 +1,9 @@
-- regex FE validator BE -- on username and title/description inputs
 - change username / password
 - delete user
 - add a settings burger
+    - Theme
+    - Account > change username / password
+    - Sign Out
 - more css
 
 

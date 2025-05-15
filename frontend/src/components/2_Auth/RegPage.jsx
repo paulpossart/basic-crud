@@ -8,16 +8,25 @@ import { callCreateUser } from "../../apiCalls/userCalls";
 function RegPage({ className }) {
     const [newUsername, setNewUsername] = useState('');
     const [newPassword, setNewPassword] = useState('');
+    const [error, setError] = useState('');
 
     const { setUser } = useAuth();
 
+    const safeRegex = /^[^<>{};\\]*$/;
+
     const handleSubmit = async (e, uname, pword) => {
         e.preventDefault();
+        setError('');
 
-        if (!uname || !pword) return;
+        if (!uname.trim() || !pword) return;
+
+        if (!safeRegex.test(uname)) {
+            setError(`Forbidden characters: ${safeRegex}`);
+            return;
+        }
 
         try {
-            const user = await callCreateUser(uname, pword);
+            const user = await callCreateUser(uname.trim(), pword);
 
             if (user) {
                 setUser(user);
@@ -42,11 +51,18 @@ function RegPage({ className }) {
             <p>RegPage</p>
             <p>Please Register an Account</p>
             <form onSubmit={(e) => handleSubmit(e, newUsername, newPassword)}>
+
                 <input
                     type='text'
                     value={newUsername}
                     onChange={(e) => setNewUsername(e.target.value)}
                 />
+                {error ? (
+                    <>
+                        <br />
+                        {error}
+                    </>
+                ) : null}
                 <br />
                 <input
                     type='password'
