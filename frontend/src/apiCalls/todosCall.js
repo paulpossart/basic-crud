@@ -1,12 +1,13 @@
 //const api = import.meta.env.VITE_API_URL;
 
-const callCreateTodo = async (title, description) => {
+const callCreateTodo = async (title, description, prevId) => {
     try {
         const response = await fetch(`/api/todos`, {
             method: 'POST',
             body: JSON.stringify({
                 title,
-                description
+                description,
+                prevId
             }),
             headers: { 'Content-Type': 'application/json' },
             credentials: 'include'
@@ -61,6 +62,25 @@ const callUpdateTodoById = async (id, newTitle, newDescription) => {
     }
 };
 
+const callPatchPriorityById = async (id, operator, adjId) => {
+    try {
+        const response = await fetch(`api/todos/${id}`, {
+            method: 'PATCH',
+            body: JSON.stringify({
+                operator,
+                adjId
+            }),
+            headers: { 'Content-Type': 'application/json' },
+            credentials: 'include'
+        });
+        if (!response.ok) {
+            throw new Error(`PATCH Error! Status: ${response.status}`);
+        }
+    } catch (error) {
+        console.error(error);
+    }
+};
+
 const callDeleteTodoById = async (id) => {
     try {
         const response = await fetch(`api/todos/${id}`, {
@@ -79,4 +99,10 @@ const callDeleteTodoById = async (id) => {
     }
 };
 
-export { callCreateTodo, callGetTodos, callUpdateTodoById, callDeleteTodoById };
+export {
+    callCreateTodo,
+    callGetTodos,
+    callUpdateTodoById,
+    callPatchPriorityById,
+    callDeleteTodoById
+};

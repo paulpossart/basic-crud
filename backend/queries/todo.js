@@ -1,3 +1,4 @@
+import { parse } from "dotenv";
 import pool from "../db/config.js";
 
 /*
@@ -9,13 +10,30 @@ description TEXT,
 
 const createTodo = async (req, res, next) => {
     const userId = req.userId;
-    const { title, description } = req.body;
+    const { title, description/**/, prevId/**/ } = req.body;
 
     try {
+        //===========================
+        const result = await pool.query(
+            `SELECT priority from crud_auth.todos
+             WHERE id = $1 AND user_id = $2`,
+            [prevId, userId]
+        );
+
+        let newPriority = 100;
+
+        if (result.rows.length === 0) {
+            newPriority = 100;
+        } else {
+            const prevPriority = result.rows[0].priority;
+            newPriority = prevPriority + 100;
+        }
+
+        //=========================
         await pool.query(
-            `INSERT INTO crud_auth.todos (user_id, title, description)
-             VALUES ($1, $2, $3)`,
-            [userId, title, description]
+            `INSERT INTO crud_auth.todos (user_id, title, description, priority)
+             VALUES ($1, $2, $3, $4)`,
+            [userId, title, description, newPriority]
         );
         res.sendStatus(201);
     } catch (err) {
@@ -30,7 +48,8 @@ const getTodos = async (req, res, next) => {
         const result = await pool.query(
             `SELECT id, title, description, priority
              FROM crud_auth.todos
-             WHERE user_id = $1`,
+             WHERE user_id = $1
+             ORDER BY priority DESC`,
             [userId]);
         res.status(200).json(result.rows);
     } catch (err) {
@@ -56,6 +75,41 @@ const updateTodoById = async (req, res, next) => {
     }
 };
 
+const patchPriorityById = async (req, res, next) => {
+    const userId = req.userId;
+    const id = parseInt(req.params.id);
+    const { operator, adjId } = req.body;
+
+    if (operator !== '+' && operator !== '-') {
+        return res.status(400).json({ message: 'Invalid operator' });
+    }
+
+    try {
+        const result = await pool.query(
+            `SELECT priority FROM crud_auth.todos
+             WHERE id = $1 AND user_id = $2`,
+            [adjId, userId]
+        );
+
+        const adjPriority = result.rows[0].priority;
+
+        const newPriority = operator === '+'
+            ? adjPriority + 10
+            : adjPriority - 10;
+
+        await pool.query(
+            `UPDATE crud_auth.todos
+             SET priority = $1
+             WHERE id = $2 AND user_id = $3`,
+            [newPriority, id, userId]
+        );
+        res.sendStatus(204);
+
+    } catch (err) {
+        next(err);
+    }
+};
+
 const deleteTodoById = async (req, res, next) => {
     const userId = req.userId
     const id = parseInt(req.params.id);
@@ -72,4 +126,11 @@ const deleteTodoById = async (req, res, next) => {
     }
 };
 
-export { createTodo, getTodos, updateTodoById, deleteTodoById };
+export {
+    createTodo,
+    getTodos,
+    updateTodoById,
+    patchPriorityById,
+    deleteTodoById,
+
+};

@@ -28,13 +28,20 @@ const callGetUser = async () => {
             method: 'GET',
             credentials: 'include'
         });
-        if (!response.ok) throw new Error('callGetUser error');
+
+        if (!response.ok) {
+            console.log('not today');
+            const data = await response.json();
+            console.log(JSON.stringify(data))
+            return null
+        }
+        //throw new Error('callGetUser error');
 
         const data = await response.json();
         return data;
-        
+
     } catch (err) {
-        console.log(err);
+        console.log('Catch:', err);
         return null;
     }
 };
