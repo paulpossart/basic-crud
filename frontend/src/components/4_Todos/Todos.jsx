@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { callGetTodos } from "../../apiCalls/todosCall";
-//import GetTodos from "./GetTodos";
+
 import PostTodo from "./PostTodo";
 import PutTodo from "./PutTodo";
 import PatchPriority from "./PatchTodos";
@@ -11,13 +11,15 @@ function Todos() {
     const [todos, setTodos] = useState([]);
     const [editId, setEditId] = useState(null);
 
-
     const { user } = useAuth();
+    const username = user ? user.username : null;
 
     const fetchTodos = async () => {
-        const data = await callGetTodos(user.id);
+        const data = await callGetTodos();
         setTodos(data)
     };
+
+    console.log(todos)
 
     useEffect(() => {
         fetchTodos();
@@ -29,8 +31,8 @@ function Todos() {
 
     return (
         <>
-            <h4>Todos</h4>
-
+            
+            <h3>Welcome {username}!</h3>
             <PostTodo
                 fetchTodos={fetchTodos}
                 prevTodo={
@@ -63,8 +65,8 @@ function Todos() {
                                         <PatchPriority
                                             todoId={todo.id}
                                             fetchTodos={fetchTodos}
-                                            prevTodo={todos[index-1] || null}
-                                            nextTodo={todos[index+1] || null}
+                                            prevTodo={todos[index - 1] || null}
+                                            nextTodo={todos[index + 1] || null}
                                         />
                                         <br />
                                         <button onClick={() => handleEdit(todo.id)}>

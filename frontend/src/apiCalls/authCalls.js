@@ -24,7 +24,7 @@ const callSignIn = async (username, password) => {
 
 const callSignOut = async () => {
     try {
-        const response = await fetch('api/auth/sign-out', {
+        const response = await fetch('/api/auth/sign-out', {
             method: 'POST',
             credetials: 'include',
         });

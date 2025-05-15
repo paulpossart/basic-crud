@@ -56,7 +56,7 @@ const signIn = async (req, res, next) => {
                 sameSite: 'Strict',
                 maxAge: 7 * 24 * 60 * 60 * 1000
             })
-            .status(200).json({ user: user.username });
+            .status(200).json({ username: user.username });
 
     } catch (err) {
         next(err);
@@ -83,6 +83,8 @@ const signOut = (req, res) => {
 const authAndRefresh = (req, res, next) => {
     const accessToken = req.cookies.accessToken;
     const refreshToken = req.cookies.refreshToken;
+
+    if (!refreshToken && !accessToken) return res.sendStatus(204) //.json({ message: 'beepboop' });
 
     if (!refreshToken) {
         return res.status(401).json({
@@ -126,7 +128,7 @@ const tokenCheck = (req, res, next) => {
     const accessToken = req.cookies.accessToken;
     const refreshToken = req.cookies.refreshToken;
 
-    if (!refreshToken && !accessToken) return res.send(200).json({ message: 'beepboop' });
+    if (!refreshToken && !accessToken) return res.status(400).json({ message: 'beepboop' });
 
     next()
 }

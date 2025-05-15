@@ -72,7 +72,8 @@ const createUser = async (req, res, next) => {
                 sameSite: 'Strict',
                 maxAge: 7 * 24 * 60 * 60 * 1000
             })
-            .status(200).json({ user: user.username });
+            .status(200).json(user);
+            return
 
     } catch (err) {
         next(err);
@@ -82,18 +83,118 @@ const createUser = async (req, res, next) => {
 
 const getUser = async (req, res, next) => {
     const userId = req.userId;
-
+    
     try {
         const result = await pool.query(
-            `SELECT username FROM crud_auth.users
+            `SELECT username, created_at FROM crud_auth.users
              WHERE id = $1`,
             [userId]
         );
         const user = result.rows[0];
-        res.status(200).json({ user: user.username });
+
+        if (!user) {
+            return res.status(404).json({ error: "User not found" });
+        }
+
+        return res.status(200).json(user);
     } catch (err) {
         next(err);
     }
 };
 
-export { createUser, getUser };
+const updateUnameAndPword = async (req, res, next) => {
+    const userId = req.userId;
+    const { updatedUname, updatedPword } = req.body;
+
+    if (
+        typeof updatedUname !== 'string' ||
+        typeof updatedPword !== 'string' ||
+        !updatedUname.trim() ||
+        !updatedPword
+    ) {
+        return res.status(400).json({ message: 'username and password needed' });
+    }
+
+    if (!validator.matches(updatedUname, safeRegex)) {
+        return res.status(400).json({ message: 'invalid username and password' });
+    }
+
+    if (!validator.isLength(updatedUname, { min: 1, max: 30 })) {
+        return res.status(400).json({ message: 'username too long/short' });
+    }
+
+    if (!validator.isLength(updatedPword, { min: 6, max: 50 })) {
+        return res.status(400).json({ message: 'password too long/short' });
+    }
+
+    try {
+        const checkUserName = await pool.query(
+            'SELECT * FROM crud_auth.users WHERE username = $1',
+            [updatedUname]
+        );
+
+        if (checkUserName.rows.length > 0) {
+            return res.status(409).json({
+                name: 'Conflict',
+                message: 'Username unavailable'
+            });
+        }
+
+        const saltRounds = 10;
+        const hashedPassword = await bcrypt.hash(updatedPword, saltRounds);
+
+        await pool.query(
+            `UPDATE crud_auth.users
+             SET username = $1, password_hash = $2
+             WHERE id = $3
+             RETURNING id, username`,
+            [updatedUname, hashedPassword, userId]
+        );
+
+        res
+            .clearCookie('accessToken', {
+                httpOnly: true,
+                secure: isProd,
+                sameSite: 'Strict',
+            })
+            .clearCookie('refreshToken', {
+                httpOnly: true,
+                secure: isProd,
+                sameSite: 'Strict',
+            })
+            .sendStatus(200);
+return;
+    } catch (err) {
+        next(err);
+    }
+}
+
+const deleteUser = async (req, res, next) => {
+    const userId = req.userId;
+
+    try {
+        await pool.query(
+            `DELETE FROM crud_auth.users
+             WHERE id = $1`,
+            [userId]
+
+        );
+        res
+            .clearCookie('accessToken', {
+                httpOnly: true,
+                secure: isProd,
+                sameSite: 'Strict',
+            })
+            .clearCookie('refreshToken', {
+                httpOnly: true,
+                secure: isProd,
+                sameSite: 'Strict',
+            })
+            .sendStatus(204);
+
+    } catch (err) {
+        next(err);
+    }
+}
+
+export { createUser, getUser, updateUnameAndPword, deleteUser };

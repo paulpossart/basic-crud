@@ -18,7 +18,15 @@ function RegPage({ className }) {
         e.preventDefault();
         setError('');
 
-        if (!uname.trim() || !pword) return;
+        if (!uname.trim() || uname.length === 0 || uname.length > 30) {
+            setError('username must be between 1 - 30 characters');
+            return;
+        }
+
+        if (!pword || pword.length < 6 || pword.length > 50) {
+            setError('password must be between 6 - 50 characters');
+            return;
+        }
 
         if (!safeRegex.test(uname)) {
             setError(`Forbidden characters: ${safeRegex}`);
@@ -55,6 +63,7 @@ function RegPage({ className }) {
                 <input
                     type='text'
                     value={newUsername}
+                    placeholder="new username"
                     onChange={(e) => setNewUsername(e.target.value)}
                 />
                 {error ? (
@@ -67,6 +76,7 @@ function RegPage({ className }) {
                 <input
                     type='password'
                     value={newPassword}
+                    placeholder="new password"
                     onChange={(e) => setNewPassword(e.target.value)}
                 />
                 <br />

@@ -24,20 +24,23 @@ const callCreateUser = async (newUsername, newPassword) => {
 
 const callGetUser = async () => {
     try {
-        const response = await fetch('api/users', {
+        const response = await fetch('/api/users', {
             method: 'GET',
             credentials: 'include'
         });
 
         if (!response.ok) {
             console.log('not today');
-            const data = await response.json();
-            console.log(JSON.stringify(data))
+            //console.log(JSON.stringify(data))
             return null
         }
         //throw new Error('callGetUser error');
 
+        if (response.status === 204) return;
         const data = await response.json();
+        
+        
+        console.log("callGetUser returned:", data);
         return data;
 
     } catch (err) {
@@ -46,4 +49,46 @@ const callGetUser = async () => {
     }
 };
 
-export { callCreateUser, callGetUser };
+const callUpdateUnameAndPword = async (updatedUname, updatedPword) => {
+    try {
+        const response = await fetch('/api/users', {
+            method: 'PUT',
+            body: JSON.stringify({
+                updatedUname,
+                updatedPword
+            }),
+            headers: { 'Content-Type': 'application/json' },
+            credentials: 'include',
+        });
+
+        if (!response.ok) throw new Error('callUpdateUnameAndPword error');
+
+        return true;
+
+    } catch (err) {
+        console.log('Catch:', err);
+        return null;
+    }
+};
+
+const callDeleteUser = async () => {
+    try {
+        const response = await fetch('/api/users', {
+            method: 'DELETE',
+            credentials: 'include',
+        });
+
+        if (!response.ok) throw new Error('callDeleteUser error');
+
+        console.log('call success')
+        return true;
+
+
+    } catch (err) {
+        console.log('!call success')
+        console.log('Catch:', err);
+        return null;
+    }
+}
+
+export { callCreateUser, callGetUser, callUpdateUnameAndPword, callDeleteUser };

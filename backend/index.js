@@ -7,7 +7,7 @@ import authRouter from './routers/authRouter.js';
 import userRouter from './routers/userRouter.js';
 import todosRouter from './routers/todosRouter.js'
 
-import { authAndRefresh } from './queries/auth.js'; 
+import { authAndRefresh, tokenCheck } from './queries/auth.js'; 
 
 const PORT = process.env.PORT;
 const app = express();
@@ -27,9 +27,13 @@ app.get('/', (req, res) => {
 
 app.use('/api/auth', authRouter);
 app.use('/api/users', userRouter);
-app.use('/api/todos', authAndRefresh, todosRouter)
+app.use('/api/todos', /*tokenCheck,*/ authAndRefresh, todosRouter)
 
 app.use((err, req, res, next) => {
+
+     if (res.headersSent) {
+        return next(err);
+    }
     const status = err.status || 500;
 
     res.status(status).json({
