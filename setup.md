@@ -56,6 +56,8 @@
 - npm install csurf validator dompurify
 - csurf needed for sameSite: none cookies
 
+- simple regex: /^[^<>{};\\]*$/ (check the actual .md file, not the Preview)
+
 ## Frontend 
 **Create frontend folder**
 

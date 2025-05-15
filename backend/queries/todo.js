@@ -1,4 +1,4 @@
-import { parse } from "dotenv";
+import validator from 'validator';
 import pool from "../db/config.js";
 
 /*
@@ -8,9 +8,40 @@ title TEXT,
 description TEXT,
 */
 
+const safeRegex = /^[^<>{};\\]*$/;
+
 const createTodo = async (req, res, next) => {
     const userId = req.userId;
     const { title, description/**/, prevId/**/ } = req.body;
+
+    if (
+            typeof title !== 'string' ||
+            typeof description !== 'string' ||
+            !title.trim() ||
+            !description.trim()
+        ) {
+            return res.status(400).json({ 
+                message: 'title and description needed'
+            });
+        }
+    
+        if (!validator.matches(title, safeRegex)) {
+            return res.status(400).json({ 
+                message: 'invalid input' });
+        }
+
+        if (!validator.matches(description, safeRegex)) {
+            return res.status(400).json({ 
+                message: 'invalid input' });
+        }
+    
+        if (!validator.isLength(title, { min: 1, max: 100 })) {
+            return res.status(400).json({ message: 'title too long' });
+        }
+    
+        if (!validator.isLength(description, { min: 1, max: 500 })) {
+            return res.status(400).json({ message: 'description too long' });
+        }
 
     try {
         //===========================
@@ -61,6 +92,35 @@ const updateTodoById = async (req, res, next) => {
     const userId = req.userId;
     const id = parseInt(req.params.id);
     const { title, description } = req.body;
+
+    if (
+            typeof title !== 'string' ||
+            typeof description !== 'string' ||
+            !title.trim() ||
+            !description.trim()
+        ) {
+            return res.status(400).json({ 
+                message: 'title and description needed'
+            });
+        }
+    
+        if (!validator.matches(title, safeRegex)) {
+            return res.status(400).json({ 
+                message: 'invalid input' });
+        }
+
+        if (!validator.matches(description, safeRegex)) {
+            return res.status(400).json({ 
+                message: 'invalid input' });
+        }
+    
+        if (!validator.isLength(title, { min: 1, max: 100 })) {
+            return res.status(400).json({ message: 'title too long' });
+        }
+    
+        if (!validator.isLength(description, { min: 1, max: 500 })) {
+            return res.status(400).json({ message: 'description too long' });
+        }
 
     try {
         await pool.query(

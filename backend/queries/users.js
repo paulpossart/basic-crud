@@ -1,16 +1,37 @@
 import { v4 as uuid4 } from 'uuid';
+import validator from 'validator';
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcrypt';
 import pool from '../db/config.js';
 import { signAccessToken, signRefreshToken } from './auth.js';
 
 const isProd = process.env.NODE_ENV === 'production';
-const accessTokenSecret = process.env.ACCESS_TOKEN_SECRET;
-const refreshTokenSecret = process.env.REFRESH_TOKEN_SECRET;
+const safeRegex = /^[^<>{};\\]*$/;
 
 const createUser = async (req, res, next) => {
     const id = uuid4();
     const { newUsername, newPassword } = req.body;
+
+    if (
+        typeof newUsername !== 'string' ||
+        typeof newPassword !== 'string' ||
+        !newUsername.trim() ||
+        !newPassword
+    ) {
+        return res.status(400).json({ message: 'username and password needed' });
+    }
+
+    if (!validator.matches(newUsername, safeRegex)) {
+        return res.status(400).json({ message: 'invalid username and password' });
+    }
+
+    if (!validator.isLength(newUsername, { min: 1, max: 30 })) {
+        return res.status(400).json({ message: 'username too long/short' });
+    }
+
+    if (!validator.isLength(newPassword, { min: 6, max: 50 })) {
+        return res.status(400).json({ message: 'password too long/short' });
+    }
 
     try {
         const checkUserName = await pool.query(
