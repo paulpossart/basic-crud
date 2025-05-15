@@ -3,6 +3,7 @@ import { callGetTodos } from "../../apiCalls/todosCall";
 //import GetTodos from "./GetTodos";
 import PostTodo from "./PostTodo";
 import PutTodo from "./PutTodo";
+import PatchPriority from "./PatchTodos";
 import DeleteToDo from "./DeleteTodo";
 import { useAuth } from "../../context/AuthContext";
 
@@ -29,11 +30,22 @@ function Todos() {
     return (
         <>
             <h4>Todos</h4>
-            <PostTodo fetchTodos={fetchTodos} />
+
+            <PostTodo
+                fetchTodos={fetchTodos}
+                prevTodo={
+                    todos.length !== 0
+                        ? todos[0]
+                        : null
+                }
+            />
+
             <>
                 <ul>
                     {todos.length > 0 ? ((
-                        todos.map((todo) =>
+                        todos.map((todo, index) =>
+
+
                             <li key={todo.id}>
 
                                 {editId === todo.id ? (
@@ -48,6 +60,13 @@ function Todos() {
                                     <>
                                         <h3>{todo.title}</h3>
                                         <p>{todo.description}</p>
+                                        <PatchPriority
+                                            todoId={todo.id}
+                                            fetchTodos={fetchTodos}
+                                            prevTodo={todos[index-1] || null}
+                                            nextTodo={todos[index+1] || null}
+                                        />
+                                        <br />
                                         <button onClick={() => handleEdit(todo.id)}>
                                             Edit
                                         </button>

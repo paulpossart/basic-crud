@@ -1,11 +1,10 @@
 import {Router} from 'express';
 import { createUser, getUser } from '../queries/users.js';
-import { authAndRefresh } from '../queries/auth.js';
+import { authAndRefresh, tokenCheck } from '../queries/auth.js';
 
 const router = Router();
 
 router.post('/', createUser);
-router.get('/', authAndRefresh, getUser);
-
+router.get('/', tokenCheck, authAndRefresh, getUser);
 
 export default router;

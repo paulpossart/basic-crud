@@ -10,9 +10,19 @@ function AuthProvider({ children }) {
 
     useEffect(() => {
         const fetchUser = async () => {
-            const data = await callGetUser();
-            if (data) setUser(data.user);
-            console.log(data.user);
+            try {
+                const data = await callGetUser();
+
+                if (data) {
+                    setUser(data.user);
+                    //console.log(data.user);
+                }
+                else return null
+
+
+            } catch (err) {
+                console.log('catch:', err)
+            }
         };
         fetchUser()
     }, [])

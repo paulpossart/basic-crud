@@ -122,6 +122,15 @@ const authAndRefresh = (req, res, next) => {
     })
 };
 
+const tokenCheck = (req, res, next) => {
+    const accessToken = req.cookies.accessToken;
+    const refreshToken = req.cookies.refreshToken;
+
+    if (!refreshToken && !accessToken) return res.send(200).json({ message: 'beepboop' });
+
+    next()
+}
+
 // /\ /\ backend only!! ==================================
 
 export {
@@ -129,5 +138,6 @@ export {
     signRefreshToken,
     signIn,
     signOut,
-    authAndRefresh
+    authAndRefresh,
+    tokenCheck
 }

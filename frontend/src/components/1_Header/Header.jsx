@@ -1,7 +1,6 @@
-import LoginBtn from "../Buttons/LoginBtn";
-import LogOutBtn from "../2_Auth/LogOutBtn";
 import { useAuth } from "../../context/AuthContext"; 
 import styles from './Header.module.scss';
+import SignOutBtn from "../2_Auth/LogOutBtn";
 
 function Navbar({className}) {
     const { user } = useAuth();
@@ -9,7 +8,7 @@ function Navbar({className}) {
     return (
         <div className={`${className} ${styles.Navbar}`}>
             <p>I am a header</p>
-            {user ? <LogOutBtn /> : <LoginBtn />}
+            {!user ? <p>Burgoh</p> : <SignOutBtn />}
         </div>
     );
 };

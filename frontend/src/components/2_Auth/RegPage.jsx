@@ -1,11 +1,9 @@
 import { useState } from "react";
 import { useAuth } from "../../context/AuthContext";
-import LoginBtn from "../Buttons/LoginBtn";
-
-//===================================
+import { Link } from "react-router-dom";
 import { callCreateUser } from "../../apiCalls/userCalls";
 
-//===================================
+
 
 function RegPage({ className }) {
     const [newUsername, setNewUsername] = useState('');
@@ -59,7 +57,7 @@ function RegPage({ className }) {
                 <button type='submit'>Submit</button>
             </form>
             <p>or</p>
-            <LoginBtn />
+            <Link to='/auth'>Sign In</Link>
         </div>
     )
 };

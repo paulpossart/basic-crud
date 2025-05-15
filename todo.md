@@ -1,10 +1,9 @@
-- set priority
-
 - regex FE validator BE -- on username and title/description inputs
-- more css
-- set on Render
 - change username / password
-- remove proxy server
+- delete user
+- add a settings burger
+- more css
+
 
 Auth Flow:
 - createUser/login.
@@ -12,3 +11,4 @@ Auth Flow:
 - logout
 
 - setup crud app on paid Render / ? netlify
+- remove proxy server...

@@ -1,7 +1,7 @@
 import Header from './components/1_Header/Header';
 import SignInPage from './components/2_Auth/SignInPage';
-import RegPage from './components/3_Users/RegPage';
-import Todos from './components/4_Todos/Todos';
+import RegPage from './components/2_Auth/RegPage';
+import Todos from './components/3_Todos/Todos';
 
 import { useAuth } from './context/AuthContext';
 import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
