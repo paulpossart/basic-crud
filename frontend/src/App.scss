@@ -5,6 +5,7 @@
         'main';
     grid-template-rows: auto 1fr;
     min-height: 100vh;
+    max-height: 100vh;
 }
 
 .header {
@@ -16,4 +17,3 @@
     grid-area: main;
     //background-color: yellow;
 }
-

@@ -67,6 +67,7 @@ const createTodo = async (req, res, next) => {
             [userId, title, description, newPriority]
         );
         res.sendStatus(201);
+        return
     } catch (err) {
         next(err);
     }
@@ -82,7 +83,7 @@ const getTodos = async (req, res, next) => {
              WHERE user_id = $1
              ORDER BY priority DESC`,
             [userId]);
-        res.status(200).json(result.rows);
+        return res.status(200).json(result.rows);
     } catch (err) {
         next(err);
     }
@@ -130,6 +131,7 @@ const updateTodoById = async (req, res, next) => {
             [title, description, id, userId]
         );
         res.sendStatus(204);
+        return;
     } catch (err) {
         next(err);
     }
@@ -164,6 +166,7 @@ const patchPriorityById = async (req, res, next) => {
             [newPriority, id, userId]
         );
         res.sendStatus(204);
+        return
 
     } catch (err) {
         next(err);
@@ -181,6 +184,7 @@ const deleteTodoById = async (req, res, next) => {
             [id, userId]
         );
         res.sendStatus(204);
+        return;
     } catch (err) {
         next(err);
     }

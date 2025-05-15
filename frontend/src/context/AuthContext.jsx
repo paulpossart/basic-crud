@@ -7,6 +7,7 @@ const useAuth = () => useContext(AuthContext);
 
 function AuthProvider({ children }) {
     const [user, setUser] = useState(null);
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         const fetchUser = async () => {
@@ -14,21 +15,23 @@ function AuthProvider({ children }) {
                 const data = await callGetUser();
 
                 if (data) {
-                    setUser(data.user);
-                    //console.log(data.user);
+                    setUser(data);
+                    console.log(data);
                 }
                 else return null
 
 
             } catch (err) {
                 console.log('catch:', err)
+            } finally {
+                setLoading(false);
             }
         };
         fetchUser()
     }, [])
 
     return (
-        <AuthContext.Provider value={{ user, setUser }}>
+        <AuthContext.Provider value={{ user, setUser, loading }}>
             {children}
         </AuthContext.Provider>
     );

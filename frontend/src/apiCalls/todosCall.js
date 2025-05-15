@@ -37,12 +37,13 @@ const callGetTodos = async () => {
         return data;
     } catch (error) {
         console.error(error);
+        return [];
     }
 };
 
 const callUpdateTodoById = async (id, newTitle, newDescription) => {
     try {
-        const response = await fetch(`api/todos/${id}`, {
+        const response = await fetch(`/api/todos/${id}`, {
             method: 'PUT',
             body: JSON.stringify({
                 title: newTitle,
@@ -64,7 +65,7 @@ const callUpdateTodoById = async (id, newTitle, newDescription) => {
 
 const callPatchPriorityById = async (id, operator, adjId) => {
     try {
-        const response = await fetch(`api/todos/${id}`, {
+        const response = await fetch(`/api/todos/${id}`, {
             method: 'PATCH',
             body: JSON.stringify({
                 operator,
@@ -83,7 +84,7 @@ const callPatchPriorityById = async (id, operator, adjId) => {
 
 const callDeleteTodoById = async (id) => {
     try {
-        const response = await fetch(`api/todos/${id}`, {
+        const response = await fetch(`/api/todos/${id}`, {
             method: 'DELETE',
             credentials: 'include'
         });

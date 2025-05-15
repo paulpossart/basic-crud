@@ -14,8 +14,8 @@ function SignInPage({ className }) {
         const user = await callSignIn(uname, pword);
 
         if (user) {
-            setUser(user);
-            console.log(`User = ${user.user}`)
+           setUser(user);
+            console.log(`User = ${user.username}`)
         }
         else {
             //set a universal error - errorContext
@@ -34,12 +34,14 @@ function SignInPage({ className }) {
                 <input
                     type='text'
                     value={username}
+                    placeholder="username"
                     onChange={(e) => setUsername(e.target.value)}
                 />
                 <br />
                 <input
                     type='password'
                     value={password}
+                    placeholder="password"
                     onChange={(e) => setPassword(e.target.value)}
                 />
                 <br />
