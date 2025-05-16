@@ -1,0 +1,71 @@
+@use '../styles/fonts' as f;
+
+.button {
+    cursor: pointer;
+    color: white;
+    background-color: hsl(240, 100%, 70%);
+
+    font: {
+        size: 1.6rem;
+        family: f.$openSans;
+    }
+
+    line-height: 1.5;
+    padding: 0.25em 0.75em;
+
+    outline: none;
+    border: none;
+    text-decoration: none;
+    border: solid 2px;
+    border-color: white;
+    border-radius: 15px;
+    transform: scale(1);
+
+    transition: color 0.25s ease-in-out,
+    transform 0.25s ease-in-out,
+    border-color 0.5s ease-in-out,
+    transform 0.2s ease-in-out,
+    background-color 0.2s ease-in-out;
+
+
+
+    &:hover {
+        border-color: blue;
+        color: hsl(240, 100%, 70%);
+        background-color: white;
+    }
+
+    &:active {
+        transform: scale(0.8);
+    }
+}
+
+.themeButton {
+    @extend .button;
+    color: black;
+    background-color: white;
+    border-color: black;
+
+    &:hover {
+        border-color: white;
+        color: white;
+        background-color: black;
+    }
+
+}
+
+.deadBtn {
+    @extend .button;
+    opacity: 0.2;
+
+    &:hover {
+        color: white;
+        background-color: hsl(240, 100%, 70%);
+        border-color: white;
+    }
+
+    &:active {
+        transform: scale(1);
+    }
+
+}

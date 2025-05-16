@@ -17,21 +17,16 @@ function Options() {
                 </div>
 
                 <div className={`${styles.options} ${isOpen ? styles.openOptions : styles.closedOptions}`}>
-                    <p>Theme</p>
 
-                    {
-                        user ?
-                            <>
-                                <Link to='/settings'>Account</Link>
-                                <SignOutBtn />
-                            </>
-                            :
-                            <>
-                                <p>Account</p>
-                                <p>Sign Out</p>
-                            </>
-                    }
-
+                    <button className={styles.themeButton}>
+                        Theme
+                    </button>
+                    <Link
+                        className={`${styles.margin} ${user ? styles.button : styles.deadBtn}`}
+                        to='/settings'>
+                        Account
+                    </Link>
+                    <SignOutBtn />
                 </div>
             </div>
         </div>
