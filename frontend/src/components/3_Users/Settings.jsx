@@ -1,15 +1,12 @@
-import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import SignOutBtn from "../2_Auth/LogOutBtn";
-import { useAuth } from "../../context/AuthContext";
 import UpdateUserAndPword from "./updateUserPword";
+import SignOutBtn from "../2_Auth/LogOutBtn";
 import DeleteUser from "./DeleteUser";
+import { useAuth } from "../../context/AuthContext";
+import styles from './Users.module.scss';
 
 function Settings({ className }) {
-
-
     const { user } = useAuth()
-
 
     const username = user.username;
     const userCreated = new Date(user.created_at);
@@ -19,25 +16,20 @@ function Settings({ className }) {
         day: 'numeric'
     });
 
-
-
     return (
-        <div className={className}>
-            <h3>SETTINGS</h3>
+        <div className={`${className} ${styles.flex}`}>
             <p>Welcome {username}, </p>
             {
                 userJoined === 'Invalid Date'
                     ? null
                     : <p>member since {userJoined} </p>
             }
-
             <UpdateUserAndPword />
-            <br />
             <DeleteUser />
-            <br />
-            <Link to='/'>Home</Link>
-            <br />
-            <SignOutBtn />
+            <div>
+                <Link className={styles.button} to='/'>Home</Link>
+                <SignOutBtn />
+            </div>
         </div>
     );
 };

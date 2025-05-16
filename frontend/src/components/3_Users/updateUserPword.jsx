@@ -1,13 +1,13 @@
 import { useState } from "react"
 import { callUpdateUnameAndPword } from "../../apiCalls/userCalls";
 import { useAuth } from "../../context/AuthContext";
+import styles from './Users.module.scss';
 
 function UpdateUserAndPword() {
     const [updatedUser, setUpdatedUser] = useState('');
     const [updatedPword, setUpdatedPword] = useState('');
-    const [updateBtn, setUpdateBtn] = useState(false);
     const [error, setError] = useState('');
-
+    const [isOpen, setIsOpen] = useState(false);
     const { setUser } = useAuth();
 
     const safeRegex = /^[^<>{};\\]*$/;
@@ -16,7 +16,7 @@ function UpdateUserAndPword() {
         e.preventDefault();
         setError('');
 
-       
+
         if (!upUser.trim() || upUser.length === 0 || upUser.length > 30) {
             setError('username must be between 1 - 30 characters');
             return;
@@ -36,7 +36,7 @@ function UpdateUserAndPword() {
             const update = await callUpdateUnameAndPword(upUser.trim(), upPword);
 
             if (update) {
-                
+
                 setUpdatedUser('');
                 setUpdatedPword('');
                 setUser(null);
@@ -58,11 +58,13 @@ function UpdateUserAndPword() {
 
     return (
         <>
-            <button onClick={() => setUpdateBtn(prev => !prev)}>
+            <button className={styles.button} onClick={() => setIsOpen(prev => !prev)}>
                 Change username and password
             </button>
-            {updateBtn ? (
-                <form onSubmit={(e) => handleSubmit(e, updatedUser, updatedPword)}>
+
+            <div className={isOpen ? styles.openDiv : styles.closedDiv}>
+                <form className={styles.flex} onSubmit={(e) => handleSubmit(e, updatedUser, updatedPword)}>
+                    <br />
                     <input
                         type='text'
                         value={updatedUser}
@@ -83,14 +85,42 @@ function UpdateUserAndPword() {
                         onChange={(e) => setUpdatedPword(e.target.value)}
                     />
                     <br />
-                    <button type='submit'>Submit</button>
+                    <button className={styles.button} type='submit'>Submit</button>
 
                 </form>
-            ) : (
-                null
-            )}
+            </div>
         </>
     );
 };
 
 export default UpdateUserAndPword;
+
+/*{updateBtn ? (
+                <form className={styles.flex} onSubmit={(e) => handleSubmit(e, updatedUser, updatedPword)}>
+                    <br />
+                    <input
+                        type='text'
+                        value={updatedUser}
+                        placeholder="updated username"
+                        onChange={(e) => setUpdatedUser(e.target.value)}
+                    />
+                    {error ? (
+                        <>
+                            <br />
+                            {error}
+                        </>
+                    ) : (null)}
+                    <br />
+                    <input
+                        type='password'
+                        value={updatedPword}
+                        placeholder="updated password"
+                        onChange={(e) => setUpdatedPword(e.target.value)}
+                    />
+                    <br />
+                    <button className={styles.button} type='submit'>Submit</button>
+
+                </form>
+            ) : (
+                null
+            )}*/
