@@ -2,6 +2,7 @@ import { useAuth } from "../../context/AuthContext";
 import { Link } from "react-router-dom";
 import styles from './Header.module.scss';
 import SignOutBtn from "../2_Auth/LogOutBtn";
+import Options from "./Options";
 
 function Navbar({className}) {
     const { user } = useAuth();
@@ -11,9 +12,7 @@ function Navbar({className}) {
     return (
         <div className={`${className} ${styles.Navbar}`}>
             <p>I am a header</p>
-            <p>{username}</p>
-            {username ? <Link to='/settings'>Settings</Link> : null}
-            {!username ? <p>Burgoh</p> : <SignOutBtn />}
+            <Options />
         </div>
     );
 };

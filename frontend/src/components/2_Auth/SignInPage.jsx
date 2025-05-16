@@ -15,7 +15,7 @@ function SignInPage({ className }) {
 
         if (user) {
            setUser(user);
-            console.log(`User = ${user.username}`)
+            console.log(`User = ${JSON.stringify(user)}`)
         }
         else {
             //set a universal error - errorContext

@@ -6,6 +6,9 @@ import bcrypt from 'bcrypt';
 
 const isProd = process.env.NODE_ENV === 'production';
 
+// To export: 
+// const isProd = () => process.env.NODE_ENV === 'production';
+
 const accessTokenSecret = process.env.ACCESS_TOKEN_SECRET;
 const refreshTokenSecret = process.env.REFRESH_TOKEN_SECRET;
 
@@ -28,7 +31,7 @@ const signIn = async (req, res, next) => {
 
     try {
         const result = await pool.query(
-            `SELECT id, username, password_hash FROM crud_auth.users
+            `SELECT id, username, password_hash, created_At FROM crud_auth.users
              WHERE username = $1`,
             [username]
         );
@@ -56,7 +59,10 @@ const signIn = async (req, res, next) => {
                 sameSite: 'Strict',
                 maxAge: 7 * 24 * 60 * 60 * 1000
             })
-            .status(200).json({ username: user.username });
+            .status(200).json({
+                username: user.username,
+                created_at: user.created_at
+            });
 
     } catch (err) {
         next(err);
@@ -127,6 +133,7 @@ const authAndRefresh = (req, res, next) => {
 const tokenCheck = (req, res, next) => {
     const accessToken = req.cookies.accessToken;
     const refreshToken = req.cookies.refreshToken;
+    // ?? : const accessToken = (req) => req.cookies.accessToken;
 
     if (!refreshToken && !accessToken) return res.status(400).json({ message: 'beepboop' });
 

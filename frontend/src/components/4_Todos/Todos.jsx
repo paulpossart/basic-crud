@@ -7,7 +7,7 @@ import PatchPriority from "./PatchTodos";
 import DeleteToDo from "./DeleteTodo";
 import { useAuth } from "../../context/AuthContext";
 
-function Todos() {
+function Todos({className}) {
     const [todos, setTodos] = useState([]);
     const [editId, setEditId] = useState(null);
 
@@ -30,7 +30,7 @@ function Todos() {
     };
 
     return (
-        <>
+        <div className={className}>
             
             <h3>Welcome {username}!</h3>
             <PostTodo
@@ -86,7 +86,7 @@ function Todos() {
                     )}
                 </ul>
             </>
-        </>
+        </div>
     );
 };
 

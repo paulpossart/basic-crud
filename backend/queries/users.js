@@ -51,7 +51,7 @@ const createUser = async (req, res, next) => {
 
         const result = await pool.query(
             `INSERT INTO crud_auth.users (id, username, password_hash)
-             VALUES ($1, $2, $3) RETURNING id, username`,
+             VALUES ($1, $2, $3) RETURNING id, username, created_at`,
             [id, newUsername, hashedPassword]
         );
 
@@ -72,8 +72,11 @@ const createUser = async (req, res, next) => {
                 sameSite: 'Strict',
                 maxAge: 7 * 24 * 60 * 60 * 1000
             })
-            .status(200).json(user);
-            return
+            .status(200).json({
+                username: user.username,
+                created_at: user.created_at
+            });
+        return
 
     } catch (err) {
         next(err);
@@ -83,7 +86,7 @@ const createUser = async (req, res, next) => {
 
 const getUser = async (req, res, next) => {
     const userId = req.userId;
-    
+
     try {
         const result = await pool.query(
             `SELECT username, created_at FROM crud_auth.users
@@ -163,7 +166,7 @@ const updateUnameAndPword = async (req, res, next) => {
                 sameSite: 'Strict',
             })
             .sendStatus(200);
-return;
+        return;
     } catch (err) {
         next(err);
     }

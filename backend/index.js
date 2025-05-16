@@ -27,7 +27,9 @@ app.get('/', (req, res) => {
 
 app.use('/api/auth', authRouter);
 app.use('/api/users', userRouter);
-app.use('/api/todos', /*tokenCheck,*/ authAndRefresh, todosRouter)
+app.use('/api/todos', /*tokenCheck,*/ authAndRefresh, todosRouter);
+
+
 
 app.use((err, req, res, next) => {
 
