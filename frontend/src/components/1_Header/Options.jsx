@@ -3,11 +3,13 @@ import { Link } from "react-router-dom";
 import SignOutBtn from "../2_Auth/LogOutBtn";
 import Burger from "./Burger";
 import { useAuth } from "../../context/AuthContext";
+import { useTheme } from "../../context/ThemeContext";
 import styles from './Options.module.scss';
 
 function Options() {
-    const [isOpen, setIsOpen] = useState(false)
+    const [isOpen, setIsOpen] = useState(false);
     const { user } = useAuth();
+    const { theme, setTheme } = useTheme();
 
     return (
         <div className={styles.container} >
@@ -18,7 +20,9 @@ function Options() {
 
                 <div className={`${styles.options} ${isOpen ? styles.openOptions : styles.closedOptions}`}>
 
-                    <button className={styles.themeButton}>
+                    <button
+                        onClick={() => setTheme(theme === "light" ? "dark" : "light")}
+                        className={styles.themeButton}>
                         Theme
                     </button>
                     <Link

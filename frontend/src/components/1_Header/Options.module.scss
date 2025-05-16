@@ -1,4 +1,5 @@
 @use '../../styles/buttons';
+@use '../../styles/colors' as c;
 
 .container {
     position: relative;
@@ -49,7 +50,7 @@
             z-index: 1;
 
             .margin {
-                margin: 1em 0;
+                margin: 1em;
             }
         }
 
@@ -86,9 +87,9 @@
         height: 18em;
         padding: 1em 2em;
 
-        background-color: white;
+        background-color: var(--main);
 
-        border-color: rgba(207, 202, 247, 1);
+        border-color: c.$primeCol;
 
 
         transition:
@@ -104,7 +105,7 @@
 
         background-color: transparent;
 
-        border-color: rgba(207, 202, 247,0);
+        border-color: var(--main);
 
         transition:
             border-color 0.2s ease-in-out,

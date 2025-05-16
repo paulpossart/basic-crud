@@ -1,9 +1,8 @@
 import { useState } from "react";
-import { useAuth } from "../../context/AuthContext";
 import { Link } from "react-router-dom";
+import { useAuth } from "../../context/AuthContext";
 import { callCreateUser } from "../../apiCalls/userCalls";
-
-
+import styles from './Users.module.scss';
 
 function RegPage({ className }) {
     const [newUsername, setNewUsername] = useState('');
@@ -55,11 +54,12 @@ function RegPage({ className }) {
     };
 
     return (
-        <div className={className}>
-            <p>RegPage</p>
+        <div className={`${className} ${styles.flex}`}>
             <p>Please Register an Account</p>
-            <form onSubmit={(e) => handleSubmit(e, newUsername, newPassword)}>
-
+            <form
+                className={styles.flex}
+                onSubmit={(e) => handleSubmit(e, newUsername, newPassword)}
+            >
                 <input
                     type='text'
                     value={newUsername}
@@ -80,10 +80,10 @@ function RegPage({ className }) {
                     onChange={(e) => setNewPassword(e.target.value)}
                 />
                 <br />
-                <button type='submit'>Submit</button>
+                <button className={styles.button} type='submit'>Submit</button>
             </form>
             <p>or</p>
-            <Link to='/auth'>Sign In</Link>
+            <Link className={styles.button} to='/auth'>Sign In</Link>
         </div>
     )
 };

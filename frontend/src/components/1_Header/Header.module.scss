@@ -1,3 +1,5 @@
+@use '../../styles/colors' as c;
+
 .Navbar {
    position: relative;
    height: 4em;
@@ -13,7 +15,7 @@
          weight: 900;
       }
 
-      color: white;
+      color: c.$secCol;
 
       transform: skewX(-25deg);
       width: 75%;
@@ -24,17 +26,20 @@
       align-items: center;
       padding-left: 1.5em;
 
-      text-shadow: 0 0 1px blue,
-      0 0 4px blue;
+      text-shadow: 0 0 3px c.$primeCol,
+      0 0 6px c.$primeCol,
+      0 0 9px c.$primeCol,
+      0 0 12px c.$primeCol,
+      0 0 15px c.$primeCol;
    }
 
    .border {
       position: absolute;
-      top: 100%;
+      top: 101%;
       left: 50%;
 
-      background: linear-gradient(70deg, hsl(240, 100%, 75%),
-            white, hsl(240, 100%, 75%));
+      background: linear-gradient(70deg, c.$primeCol,
+            c.$secCol, c.$primeCol);
       background-size: 500%;
       transform: translate(-50%, -50%);
 

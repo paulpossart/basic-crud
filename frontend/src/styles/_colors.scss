@@ -1,3 +1,2 @@
-@mixin backgroundGradient($n) {
-    background: linear-gradient(#{$n}deg, hsl(217, 46%, 95%) 1%, white 30%, white 70%, hsl(217, 46%, 95%) 100%);
-}
+$primeCol: hsl(240, 63%, 62%);
+$secCol: white;

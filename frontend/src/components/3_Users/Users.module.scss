@@ -1,0 +1,44 @@
+@use '../../styles/buttons';
+
+.flex {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+
+    margin: 0;
+    padding: 0;
+
+    overflow: auto;
+    height: 100%;
+}
+
+.flex2 {
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: auto;
+}
+
+.openDiv {
+    height: 100%;
+    visibility: visible;
+    opacity: 1;
+
+    transition:
+        height 0.5s ease-in-out,
+        visibility 1s linear 0s,
+        opacity 0.25s ease-in;
+}
+
+.closedDiv {
+    height: 0%;
+    visibility: hidden;
+    opacity: 0;
+
+    transition:
+        height 0.5s ease-in-out,
+        visibility 0s linear 0.5s,
+        opacity 0.25s ease-in;
+}

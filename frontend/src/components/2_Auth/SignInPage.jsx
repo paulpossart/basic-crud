@@ -1,12 +1,12 @@
 import { useState } from "react";
-import { useAuth } from "../../context/AuthContext"; 
 import { Link } from "react-router-dom";
- import { callSignIn } from "../../apiCalls/authCalls";
+import { callSignIn } from "../../apiCalls/authCalls";
+import { useAuth } from "../../context/AuthContext";
+import styles from './Auth.module.scss';
 
 function SignInPage({ className }) {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
-
     const { setUser } = useAuth();
 
     const handleSubmit = async (e, uname, pword) => {
@@ -14,11 +14,10 @@ function SignInPage({ className }) {
         const user = await callSignIn(uname, pword);
 
         if (user) {
-           setUser(user);
+            setUser(user);
             console.log(`User = ${JSON.stringify(user)}`)
         }
         else {
-            //set a universal error - errorContext
             console.log('user not found')
         }
 
@@ -27,10 +26,13 @@ function SignInPage({ className }) {
     };
 
     return (
-        <div className={className}>
-            <p>AuthPage</p>
+        <div className={`${className} ${styles.flex}`}>
+
             <p>Please Sign In</p>
-            <form onSubmit={(e) => handleSubmit(e, username, password)}>
+            <form
+                className={styles.flex}
+                onSubmit={(e) => handleSubmit(e, username, password)}
+            >
                 <input
                     type='text'
                     value={username}
@@ -45,10 +47,10 @@ function SignInPage({ className }) {
                     onChange={(e) => setPassword(e.target.value)}
                 />
                 <br />
-                <button type='submit'>Submit</button>
+                <button className={styles.button} type='submit'>Submit</button>
             </form>
             <p>or</p>
-            <Link to='/new-user-reg'>Register for an Account</Link>
+            <Link className={styles.button} to='/new-user-reg'>Register for an Account</Link>
         </div>
     )
 };

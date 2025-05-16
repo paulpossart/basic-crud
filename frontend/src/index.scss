@@ -8,6 +8,7 @@
 
 html,
 body {
+    height: 100%;
     margin: 0;
     padding: 0;
 }
@@ -16,12 +17,30 @@ html {
     font-size: 62.5%;
 }
 
+body.light {
+    --main: white;
+    --alt: black;
+}
+
+body.dark {
+    --main: black;
+    --alt: white;
+}
+
 body {
-    font-family: f.$openSans;
-    font-size: 1.6rem;
+    background-color: var(--main);
+    color: var(--alt);
+
+    font: {
+        family: f.$openSans;
+        size: 1.6rem;
+    }
+
     text-align: center;
     line-height: 1.5;
-    @include c.backgroundGradient(135);
+    //@include c.backgroundGradient(135);
+
+    transition: background-color 1s ease-in-out;
 
     @media (min-width: 800px),
     (orientation: portrait) and (min-width: 390px) {

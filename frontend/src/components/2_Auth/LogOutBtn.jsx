@@ -1,11 +1,11 @@
 import { useNavigate } from "react-router-dom";
 import { callSignOut } from "../../apiCalls/authCalls";
 import { useAuth } from "../../context/AuthContext";
-import styles from './LogOut.module.scss';
+import styles from './Auth.module.scss';
 
 function SignOutBtn() {
-    const {user, setUser} = useAuth();
     const navigate = useNavigate();
+    const { user, setUser } = useAuth();
 
     const handleSignOut = async () => {
         await callSignOut()
@@ -13,8 +13,14 @@ function SignOutBtn() {
         navigate('/auth')
     };
 
-    return(
-        <button className={user ? styles.button : styles.deadBtn} type='button' onClick={handleSignOut}>Sign Out</button>
+    return (
+        <button
+            className={user ? styles.button : styles.deadBtn}
+            type='button'
+            onClick={handleSignOut}
+        >
+            Sign Out
+        </button>
     );
 };
 

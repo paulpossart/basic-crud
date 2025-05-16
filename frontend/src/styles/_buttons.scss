@@ -1,9 +1,10 @@
 @use '../styles/fonts' as f;
+@use '../styles/colors' as c;
 
 .button {
     cursor: pointer;
-    color: white;
-    background-color: hsl(240, 100%, 70%);
+    color: c.$secCol;
+    background-color: c.$primeCol;
 
     font: {
         size: 1.6rem;
@@ -17,7 +18,7 @@
     border: none;
     text-decoration: none;
     border: solid 2px;
-    border-color: white;
+    border-color: var(--main);
     border-radius: 15px;
     transform: scale(1);
 
@@ -30,9 +31,9 @@
 
 
     &:hover {
-        border-color: blue;
-        color: hsl(240, 100%, 70%);
-        background-color: white;
+        border-color: c.$primeCol;
+        color: c.$primeCol;
+        background-color: c.$secCol;
     }
 
     &:active {
@@ -42,26 +43,26 @@
 
 .themeButton {
     @extend .button;
-    color: black;
-    background-color: white;
-    border-color: black;
+    border-color: var(--main);
+    color: var(--main);
+    background-color: var(--alt);
 
     &:hover {
-        border-color: white;
-        color: white;
-        background-color: black;
+        color: var(--alt);
+        background-color: var(--main);
+        border-color: var(--alt);
     }
 
 }
 
 .deadBtn {
     @extend .button;
-    opacity: 0.2;
+    opacity: 0.4;
 
     &:hover {
-        color: white;
-        background-color: hsl(240, 100%, 70%);
-        border-color: white;
+        color: c.$secCol;
+        background-color: c.$primeCol;
+        border-color: var(--main);
     }
 
     &:active {
