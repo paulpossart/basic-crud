@@ -1,7 +1,89 @@
 .Navbar {
+   position: relative;
+   height: 4em;
+
    display: flex;
    justify-content: space-between;
    align-items: center;
-   padding: 0 5rem;
-   border-bottom: black solid 2px;
+   padding: 0 0;
+
+   .title {
+      font: {
+         size: 3rem;
+         weight: 900;
+      }
+
+      color: white;
+
+      transform: skewX(-25deg);
+      width: 75%;
+      height: 100%;
+
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+      padding-left: 1.5em;
+
+      text-shadow: 0 0 1px blue,
+      0 0 4px blue;
+
+      /*animation: titleShadow 8s ease-in-out infinite;
+
+      @keyframes titleShadow {
+         0% {
+            text-shadow: 0 0 3px rgba(0, 0, 255, 0.1),
+               0 0 6px rgba(0, 0, 255, 0.1),
+               0 0 9px rgba(0, 0, 255, 0.1),
+               0 0 12px rgba(0, 0, 255, 0.1),
+               0 0 15px rgba(0, 0, 255, 0.1);
+         }
+
+         50% {
+            text-shadow: 0 0 3px rgba(0, 0, 255, 1),
+               0 0 6px rgba(0, 0, 255, 0.8),
+               0 0 9px rgba(0, 0, 255, 0.6),
+               0 0 12px rgba(0, 0, 255, 0.4),
+               0 0 15px rgba(0, 0, 255, 0.2);
+         }
+
+         100% {
+            text-shadow: 0 0 3px rgba(0, 0, 255, 0.1),
+               0 0 6px rgba(0, 0, 255, 0.1),
+               0 0 9px rgba(0, 0, 255, 0.1),
+               0 0 12px rgba(0, 0, 255, 0.1),
+               0 0 15px rgba(0, 0, 255, 0.1);
+         }
+      }*/
+   }
+
+   .border {
+      position: absolute;
+      top: 100%;
+      left: 50%;
+
+      background: linear-gradient(70deg, hsl(240, 100%, 75%),
+            white, hsl(240, 100%, 75%));
+      background-size: 500%;
+      transform: translate(-50%, -50%);
+
+      width: 80%;
+      height: 2px;
+      border-radius: 25px;
+
+      animation: border-glow 15s ease-in-out infinite;
+
+      @keyframes border-glow {
+         0% {
+            background-position: 0 0;
+         }
+
+         50% {
+            background-position: 100% 0;
+         }
+
+         100% {
+            background-position: 0 0;
+         }
+      }
+   }
 }
