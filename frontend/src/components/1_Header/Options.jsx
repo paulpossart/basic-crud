@@ -11,26 +11,29 @@ function Options() {
 
     return (
         <div className={styles.container} >
-            <div className={styles.burger} onClick={() => setIsOpen(prev => !prev)}>
-                <Burger isOpen={isOpen} />
-            </div>
+            <div className={`${styles.sidebar} ${isOpen ? styles.sidebarOpen : styles.sidebarClosed}`}>
+                <div className={styles.burger} onClick={() => setIsOpen(prev => !prev)}>
+                    <Burger isOpen={isOpen} />
+                </div>
 
-            <div className={`${styles.options} ${isOpen ? styles.openOptions : styles.closedOptions}`}>
-                <p>Theme</p>
-                {
-                    user ?
-                        <>
-                            <Link to='/settings'>Account</Link>
-                            <SignOutBtn />
-                        </>
-                        :
-                        <>
-                            <p>Account</p>
-                            <p>Sign Out</p>
-                        </>
-                }
-            </div>
+                <div className={`${styles.options} ${isOpen ? styles.openOptions : styles.closedOptions}`}>
+                    <p>Theme</p>
 
+                    {
+                        user ?
+                            <>
+                                <Link to='/settings'>Account</Link>
+                                <SignOutBtn />
+                            </>
+                            :
+                            <>
+                                <p>Account</p>
+                                <p>Sign Out</p>
+                            </>
+                    }
+
+                </div>
+            </div>
         </div>
     );
 };
